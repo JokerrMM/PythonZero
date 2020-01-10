@@ -7,7 +7,7 @@ class Student(object):
 
 s = Student()
 s.name = 'Michael'
-s.age = 25
+s.age = 2512
 # s.score = 991212
 
 #由于'score'没有被放到__slots__中,所以不能绑定score属性,试图绑定score将得到AttributeError的错误
