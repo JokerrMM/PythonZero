@@ -120,4 +120,53 @@ f = open('test.txt', 'wb')
 pickle.dump(d, f)
 f.close()
 
+#读文件,反序列化
+f = open('test.txt', 'rb')
+d = pickle.load(f)
+f.close()
+print(d)
 
+
+
+####JSON
+import json
+d2 = dict(name='Bob', age=18, score=99)
+#dumps()返回一个str,内容就是标准的json
+print(json.dumps(d2))
+
+#loads()和load(), 前者是把json的字符串反序列化,后者是从file-like object中读取字符串并反序列化
+json_str = '{"name": "Winter", "age": "20", "score": "99"}'
+d3 = json.loads(json_str)
+print(d3)
+
+
+####JSON进阶
+import json
+class Student(object):
+    def __init__(self, name, age, score):
+        self.name = name
+        self.age = age
+        self.score = score
+
+s = Student('Bob', 20, 99)
+#然后这里会报错, 因为Student对象不是一个可序列化为json的对象
+# print(json.dumps(s))
+
+#转换函数 对象转模型,转为dict
+def student2dict(std):
+    return {
+        'name': std.name,
+        'age': std.age,
+        'score': std.score
+    }
+
+print(json.dumps(s, default=student2dict))
+
+print(json.dumps(s, default=lambda obj: obj.__dict__))
+
+#同理,将json转为对象
+def dict2student(d):
+    return Student(d['name'], d['age'], d['score'])
+
+json_str = '{"name": "John", "age": "18", "score": "100"}'
+print(json.loads(json_str, object_hook=dict2student))
