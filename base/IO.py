@@ -82,5 +82,42 @@ f = BytesIO(b'\xe4\xb8\xad\xe6\x96\x87')
 f.read()
 
 print('=======================操作文件和目录=================')
+import os
+
+#查看当前目录的绝对路径
+print(os.path.abspath('.'))
+
+#在某个目录下创建一个新目录
+#首先把新目录的完整路径表示出来
+# d = os.path.join('/Users/Maitian/Desktop/JokerrMM/PythonZero/base', 'testdir')
+
+#然后创建一个目录
+# d1 = os.mkdir('/Users/Maitian/Desktop/JokerrMM/PythonZero/base/testdir')
+
+#删掉一个目录
+# os.rmdir('/Users/Maitian/Desktop/JokerrMM/PythonZero/base/testdir')
+
+#获取文件名
+fileName = os.path.split('/Users/Maitian/Desktop/JokerrMM/PythonZero/base/AdvancedFeatures.py')
+print(fileName[1])
+
+#重命名文件
+# os.rename('test.txt', 'test.py')
+#删除文件
+# os.remove('test.py')
+
+
+print('=======================序列化=================')
+import pickle
+
+#pickle.dumps()方法把任意对象序列化成一个bytes,然后就可以把这个bytes写入文件
+#或者用pickle.dump()直接把对象序列化后写入一个file-like Object
+d = dict(name='Bob', age=20, score=88)
+pickle.dumps(d)
+
+#直接写入test.txt文件
+f = open('test.txt', 'wb')
+pickle.dump(d, f)
+f.close()
 
 
